@@ -1,7 +1,12 @@
 import { css, element } from "uebersicht";
 
 const spaceContainer = css({
-  marginLeft: 10
+  display: "flex",
+  paddingLeft: 10,
+  paddingRight: 10,
+  justifyContent: "center",
+  alignItems: "center",
+  position: "relative"
 });
 
 const underline = css({
@@ -30,6 +35,16 @@ const container = css({
   flexDirection: "row"
 });
 
+const background = css({
+  position: "absolute",
+  top: 0,
+  bottom: 0,
+  right: 0,
+  left: 0,
+  backgroundColor: "orange",
+  zIndex: -1
+});
+
 const render = ({ error, spaces = [] }) => {
   if (error) return <p>some error...</p>;
   if (!spaces || spaces.length === 0) return null;
@@ -38,8 +53,12 @@ const render = ({ error, spaces = [] }) => {
     <div className={container}>
       {spaces.map(space => (
         <div className={spaceContainer}>
-          <p className={space.focused ? active : text}>{space.index}</p>
+          <img
+            src={`/Applications/${space.windowInfo.app}.app/Contents/Resources/Icon.icns`}
+            className={background}
+          />
           <div className={space.display === 1 ? null : underline} />
+          <p className={space.focused ? active : text}>{space.index}</p>
         </div>
       ))}
     </div>
