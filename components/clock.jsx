@@ -36,6 +36,12 @@ const MONTHS = [
   "Dec"
 ];
 
+function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+
 const render = ({ error }) => {
   if (error) return <p>some error...</p>;
 
@@ -43,7 +49,7 @@ const render = ({ error }) => {
 
   return (
     <div className={container}>
-      <p className={timeText}>{`${now.getHours()}:${now.getMinutes()} `}</p>
+      <p className={timeText}>{`${now.getHours()}:${pad(now.getMinutes(), 2)} `}</p>
       <p className={dateText}>
         {` (${now.getDate()}. ${MONTHS[now.getMonth()]})`}
       </p>
